@@ -36,14 +36,11 @@ const DEFAULT_LOGOS = [{ src: logoOne, alt: 'Logo VANC' }];
 
 const DEFAULT_TEXT = (
   <>
-    En reconocimiento por haber concluido satisfactoriamente la
+    Por completar satisfactoriamente la <strong>Capacitación de Evangelismo VANC</strong>,
     <br />
-    <strong>Capacitación de Evangelismo VANC</strong>, demostrando su
-    compromiso
+    reafirmando su compromiso con la Gran Comisión y con compartir
     <br />
-    con la Gran Comisión y su disposición para compartir el mensaje
-    <br />
-    de esperanza y salvación en Jesucristo.
+    el mensaje de esperanza y salvación en Jesucristo.
   </>
 );
 
@@ -205,18 +202,18 @@ const CSS = `
 
 .vc-logos {
   position: absolute;
-  top: 40px;
+  top: 18px;
   left: 0;
   right: 0;
-  height: 150px;
+  height: 195px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .vc-logos img {
-  height: 145px;
+  height: 190px;
   width: auto;
-  max-width: 460px;
+  max-width: 610px;
   object-fit: contain;
 }
 
@@ -275,8 +272,8 @@ const CSS = `
 .vc-text {
   position: absolute;
   top: 440px;
-  left: 110px;
-  right: 110px;
+  left: 65px;
+  right: 65px;
   margin: 0;
   font-size: 29px;
   line-height: 1.5;
