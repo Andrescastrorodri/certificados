@@ -17,7 +17,7 @@ import {
 
 import { participantesAutorizados } from '@/participants';
 
-import Certificate, { CERT_WIDTH, CERT_HEIGHT, logoOne, logoTwo, signature } from '@/template/faec';
+import Certificate, { CERT_WIDTH, CERT_HEIGHT, logoOne, logoTwo, signature } from '@/template/vanc';
 
 function normalize(value: string): string {
   return value
