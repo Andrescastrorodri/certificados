@@ -233,16 +233,6 @@ function App() {
 
       await document.fonts.ready;
 
-      const [
-        logo1Data,
-        logo2Data,
-        signatureData
-      ] = await Promise.all([
-        loadImage(logoOne),
-        loadImage(logoTwo),
-        loadImage(signature)
-      ]);
-
       const exportNode =
         original.cloneNode(true) as HTMLElement;
 
@@ -276,16 +266,10 @@ function App() {
         }
       );
 
-      exportNode.querySelector<HTMLImageElement>(
-        '.logo-main'
-      )!.src = logo1Data;
-
-      exportNode.querySelector<HTMLImageElement>(
-        '.logo-secondary'
-      )!.src = logo2Data;
-
-      const signatureImage = exportNode.querySelector<HTMLImageElement>('.signature-image');
-      if (signatureImage) signatureImage.src = signatureData;
+      // Convert all template images to data URLs for reliable PDF rendering.
+      await Promise.all(Array.from(exportNode.querySelectorAll<HTMLImageElement>('img')).map(async (img) => {
+        img.src = await loadImage(img.src);
+      }));
 
     // ==========================================
 // CORRECCIÓN DE MÉTRICAS PARA HTML2CANVAS
