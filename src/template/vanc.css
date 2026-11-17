@@ -1,0 +1,14 @@
+/* Estilos exclusivos de la plantilla VANC; FAEC permanece intacta. */
+.vanc-certificate .content{z-index:20}
+.vanc-certificate .intro{margin-top:20px;font-size:23px}
+.vanc-certificate .name-container{margin-top:12px}
+.vanc-certificate .vanc-recognition{width:880px;margin:20px auto 0;font:500 19px/1.35 Georgia,serif;text-align:center;color:#071f48}
+.vanc-certificate .vanc-recognition strong{font-weight:700}
+.vanc-certificate .vanc-verse{width:790px;margin:15px auto 0;text-align:center;color:#071f48;font:19px/1.3 Georgia,serif}
+.vanc-certificate .vanc-date{width:max-content;max-width:800px;margin:14px auto 0;padding:8px 28px;border:3px solid #d7a324;border-radius:32px;background:#052e6c;color:#fff;font:21px Georgia,serif}
+.vanc-certificate .vanc-signatures{position:absolute;left:100px;right:100px;bottom:52px;display:flex;flex-direction:column;gap:17px;color:#071f48;font-family:Georgia,serif}
+.vanc-certificate .vanc-signature-row{display:flex;justify-content:space-around;gap:60px}
+.vanc-certificate .vanc-signer{width:290px;text-align:center;display:flex;flex-direction:column;gap:2px}
+.vanc-certificate .vanc-sign-line{border-top:2px solid #071f48;margin-bottom:4px}
+.vanc-certificate .vanc-signer strong{font-size:19px}
+.vanc-certificate .vanc-signer em{font-size:16px}
