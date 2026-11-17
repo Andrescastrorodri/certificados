@@ -8,8 +8,8 @@ import type { ReactNode, RefObject } from 'react';
 export const CERT_WIDTH = 1536;
 export const CERT_HEIGHT = 1024;
 
-export const logoOne = '/images/logo1.png'; // Evangelismo VANC
-export const logoTwo = '/images/logo2.png'; // Vida Abundante Norte Cariari
+export const logoOne = '/images/IMG_2559.PNG';
+export const logoTwo = logoOne;
 
 export type Signer = { name: string; role: string };
 
@@ -32,10 +32,7 @@ export type CertificateProps = {
   signers?: Signer[];
 };
 
-const DEFAULT_LOGOS = [
-  { src: logoOne, alt: 'Logo Evangelismo VANC' },
-  { src: logoTwo, alt: 'Logo Vida Abundante Norte Cariari' }
-];
+const DEFAULT_LOGOS = [{ src: logoOne, alt: 'Logo VANC' }];
 
 const DEFAULT_TEXT = (
   <>
@@ -215,7 +212,6 @@ const CSS = `
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
 }
 .vc-logos img {
   height: 145px;
@@ -223,11 +219,7 @@ const CSS = `
   max-width: 460px;
   object-fit: contain;
 }
-.vc-logo-divider {
-  width: 3px;
-  height: 135px;
-  background: var(--gold);
-}
+
 
 .vc-intro {
   position: absolute;
@@ -396,11 +388,8 @@ export default function Certificate({
       <main className="vc-content">
         {/* {LOGO} */}
         <div className="vc-logos">
-          {logos.map((logo, index) => (
-            <span key={logo.src} style={{ display: 'contents' }}>
-              {index > 0 && <div className="vc-logo-divider" />}
-              <img src={logo.src} alt={logo.alt} />
-            </span>
+          {logos.slice(0, 1).map((logo) => (
+            <img key={logo.src} src={logo.src} alt={logo.alt} />
           ))}
         </div>
 
