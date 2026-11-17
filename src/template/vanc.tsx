@@ -220,7 +220,7 @@ const CSS = `
 
 .vc-intro {
   position: absolute;
-  top: 218px;
+  top: 325px;
   left: 0;
   right: 0;
   font-size: 40px;
@@ -229,7 +229,7 @@ const CSS = `
 
 .vc-name {
   position: absolute;
-  top: 308px;
+  top: 425px;
   left: 120px;
   right: 120px;
   height: 76px;
@@ -246,7 +246,7 @@ const CSS = `
 /* Línea del nombre: curva azul + extremos dorados */
 .vc-name-line {
   position: absolute;
-  top: 384px;
+  top: 508px;
   left: 0;
   right: 0;
   height: 16px;
@@ -271,7 +271,7 @@ const CSS = `
 
 .vc-text {
   position: absolute;
-  top: 460px;
+  top: 555px;
   left: 30px;
   right: 30px;
   margin: 0;
@@ -282,7 +282,7 @@ const CSS = `
 
 .vc-verse {
   position: absolute;
-  top: 650px;
+  top: 720px;
   left: 0;
   right: 0;
   margin: 0;
@@ -292,7 +292,7 @@ const CSS = `
 }
 .vc-verse-ref {
   position: absolute;
-  top: 735px;
+  top: 805px;
   left: 0;
   right: 0;
   margin: 0;
@@ -303,7 +303,7 @@ const CSS = `
 /* Firmas */
 .vc-signers {
   position: absolute;
-  top: 855px;
+  top: 890px;
   left: 0;
   right: 0;
   display: flex;
