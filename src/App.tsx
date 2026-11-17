@@ -17,7 +17,7 @@ import {
 
 import { participantesAutorizados } from '@/participants';
 
-import Certificate, { CERT_WIDTH, CERT_HEIGHT, logoOne, logoTwo, signature } from '@/template/vanc';
+import Certificate, { CERT_WIDTH, CERT_HEIGHT, logoOne } from '@/template/vanc';
 
 function normalize(value: string): string {
   return value
@@ -458,19 +458,7 @@ if (exportCourseText) {
 
     <div className="brand">
       <div className="brand-logos">
-        <img
-          src={logoOne}
-          alt="Comisión de Evangelismo"
-          className="nav-logo nav-logo-main"
-        />
-
-        <span className="nav-logo-divider" />
-
-        <img
-          src={logoTwo}
-          alt="Federación Alianza Evangélica Costarricense"
-          className="nav-logo nav-logo-secondary"
-        />
+        <img src={logoOne} alt="Logo VANC" className="nav-logo nav-logo-main" />
       </div>
 
       <div className="brand-copy">
