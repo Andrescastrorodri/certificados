@@ -148,13 +148,19 @@ export default function Certificate({
         <div className="vanc-date">Martes 17 de noviembre de 2026</div>
 
         <div className="vanc-signatures">
-          <div className="vanc-signature-row">
-            <div className="vanc-signer"><div className="vanc-sign-line" /><strong>Ana Lía Ávila</strong><em>Pastora Eje</em></div>
-            <div className="vanc-signer"><div className="vanc-sign-line" /><strong>Angie Rodríguez</strong><em>Líder de Ministerio</em></div>
+          <div className="vanc-signature-group">
+            <div className="vanc-sign-line" />
+            <div className="vanc-signature-names">
+              <div className="vanc-signer"><strong>Ana Lía Ávila</strong><em>Pastora Eje</em></div>
+              <div className="vanc-signer"><strong>Angie Rodríguez</strong><em>Líder de Ministerio</em></div>
+            </div>
           </div>
-          <div className="vanc-signature-row">
-            <div className="vanc-signer"><div className="vanc-sign-line" /><strong>Pablo Sánchez</strong><em>Capacitador</em></div>
-            <div className="vanc-signer"><div className="vanc-sign-line" /><strong>Mario López</strong><em>Capacitador</em></div>
+          <div className="vanc-signature-group">
+            <div className="vanc-sign-line" />
+            <div className="vanc-signature-names">
+              <div className="vanc-signer"><strong>Pablo Sánchez</strong><em>Capacitador</em></div>
+              <div className="vanc-signer"><strong>Mario López</strong><em>Capacitador</em></div>
+            </div>
           </div>
         </div>
 
