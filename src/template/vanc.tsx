@@ -229,12 +229,12 @@ const CSS = `
 
 .vc-name {
   position: absolute;
-  top: 300px;
-  left: 170px;
-  right: 170px;
+  top: 308px;
+  left: 120px;
+  right: 120px;
   height: 76px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   font-weight: 700;
   line-height: 1.1;
@@ -271,9 +271,9 @@ const CSS = `
 
 .vc-text {
   position: absolute;
-  top: 440px;
-  left: 65px;
-  right: 65px;
+  top: 460px;
+  left: 30px;
+  right: 30px;
   margin: 0;
   font-size: 29px;
   line-height: 1.5;
