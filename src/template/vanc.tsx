@@ -1,13 +1,73 @@
-import type { RefObject } from 'react';
-import './vanc.css';
+import type { ReactNode, RefObject } from 'react';
 
-export const CERT_WIDTH = 1122;
-export const CERT_HEIGHT = 794;
+/* =====================================================================
+   Certificado VANC — archivo único (componente + estilos + datos por defecto)
+   Formato: 1536 x 1024 px (proporción 3:2)
+   ===================================================================== */
 
-export const logoOne = '/images/logo1.png';
-export const logoTwo = '/images/logo2.png';
-export const signature = '/images/firma.png';
+export const CERT_WIDTH = 1536;
+export const CERT_HEIGHT = 1024;
 
+export const logoOne = '/images/logo1.png'; // Evangelismo VANC
+export const logoTwo = '/images/logo2.png'; // Vida Abundante Norte Cariari
+
+export type Signer = { name: string; role: string };
+
+export type CertificateProps = {
+  /** {NOMBRE_DEL_PARTICIPANTE} */
+  name: string;
+  /** Se muestra como marca vertical: "Emitido el 17 de noviembre de 2026, 4:49 p. m." */
+  issuedAt: Date;
+  certificateRef?: RefObject<HTMLDivElement>;
+
+  /** {LOGO}: uno o varios logos (con separador dorado entre ellos) */
+  logos?: { src: string; alt: string }[];
+  /** {TEXTO_DEL_CERTIFICADO} */
+  text?: ReactNode;
+  /** {TEXTO_BIBLICO} */
+  verse?: ReactNode;
+  /** {REFERENCIA_BIBLICA} */
+  verseReference?: string;
+  /** {FIRMA_N_NOMBRE} y {FIRMA_N_CARGO} */
+  signers?: Signer[];
+};
+
+const DEFAULT_LOGOS = [
+  { src: logoOne, alt: 'Logo Evangelismo VANC' },
+  { src: logoTwo, alt: 'Logo Vida Abundante Norte Cariari' }
+];
+
+const DEFAULT_TEXT = (
+  <>
+    En reconocimiento por haber concluido satisfactoriamente la
+    <br />
+    <strong>Capacitación de Evangelismo VANC</strong>, demostrando su
+    compromiso
+    <br />
+    con la Gran Comisión y su disposición para compartir el mensaje
+    <br />
+    de esperanza y salvación en Jesucristo.
+  </>
+);
+
+const DEFAULT_VERSE = (
+  <>
+    “Pero tú sé sobrio en todo, soporta las aflicciones,
+    <br />
+    haz obra de evangelista, cumple tu ministerio”.
+  </>
+);
+
+const DEFAULT_SIGNERS: Signer[] = [
+  { name: 'Ana Lía Ávila', role: 'Pastora Eje' },
+  { name: 'Angie Rodríguez', role: 'Líder de Ministerio' }
+];
+
+/* ---------------------------------------------------------------------
+   Utilidades
+   --------------------------------------------------------------------- */
+
+// Ej: "17 de noviembre de 2026, 4:49 p. m."
 function formatIssuedAt(date: Date): string {
   return new Intl.DateTimeFormat('es-CR', {
     day: '2-digit',
@@ -19,153 +79,361 @@ function formatIssuedAt(date: Date): string {
   }).format(date);
 }
 
+// Reduce el tamaño del nombre cuando es muy largo para que nunca se desborde
+function nameFontSize(name: string): number {
+  const length = name.trim().length;
+  if (length > 36) return 34;
+  if (length > 30) return 38;
+  if (length > 24) return 44;
+  return 50;
+}
+
+/* ---------------------------------------------------------------------
+   Esquina decorativa (azul marino + cintas doradas)
+   --------------------------------------------------------------------- */
+
+function Corner({ className, id }: { className: string; id: string }) {
+  return (
+    <svg
+      className={`vc-corner ${className}`}
+      viewBox="0 0 640 420"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id={`${id}-gold`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#f3d27a" />
+          <stop offset="45%" stopColor="#d9a21f" />
+          <stop offset="100%" stopColor="#f0c552" />
+        </linearGradient>
+        <linearGradient id={`${id}-navy`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#04183a" />
+          <stop offset="100%" stopColor="#0b3a78" />
+        </linearGradient>
+      </defs>
+
+      {/* Fondo azul marino */}
+      <path
+        d="M0 0 L640 0 C 450 22 200 110 95 280 C 55 345 22 385 0 410 Z"
+        fill={`url(#${id}-navy)`}
+      />
+
+      {/* Banda azul intermedia (más clara) */}
+      <path
+        d="M0 160 C 70 90 190 50 330 22 C 220 75 110 150 40 290 C 25 320 10 345 0 360 Z"
+        fill="#12468c"
+        opacity="0.55"
+      />
+
+      {/* Cinta dorada principal */}
+      <path
+        d="M640 0 C 430 30 180 120 66 300 C 38 345 16 385 0 420 L0 372 C 18 340 40 305 70 268 C 190 120 420 36 590 0 Z"
+        fill={`url(#${id}-gold)`}
+      />
+
+      {/* Hilo dorado fino */}
+      <path
+        d="M545 0 C 360 32 150 125 40 285 C 20 315 8 335 0 350"
+        fill="none"
+        stroke="#f3d27a"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        opacity="0.9"
+      />
+    </svg>
+  );
+}
+
+/* ---------------------------------------------------------------------
+   Estilos (incluidos en el mismo archivo)
+   --------------------------------------------------------------------- */
+
+const CSS = `
+.vc-certificate {
+  --navy: #0b2a5b;
+  --navy-dark: #04183a;
+  --gold: #d9a21f;
+  --gold-light: #f3d27a;
+
+  position: relative;
+  width: ${CERT_WIDTH}px;
+  height: ${CERT_HEIGHT}px;
+  overflow: hidden;
+  background: #ffffff;
+  color: var(--navy);
+  font-family: 'Merriweather', 'Crimson Pro', Georgia, 'Times New Roman', serif;
+  box-sizing: border-box;
+}
+.vc-certificate *, .vc-certificate *::before, .vc-certificate *::after {
+  box-sizing: border-box;
+}
+
+/* Marco dorado con esquinas redondeadas */
+.vc-frame {
+  position: absolute;
+  inset: 14px;
+  border: 2px solid var(--gold);
+  border-radius: 30px;
+  z-index: 6;
+  pointer-events: none;
+}
+
+/* Contenedor que recorta las esquinas decorativas dentro del marco */
+.vc-clip {
+  position: absolute;
+  inset: 14px;
+  border-radius: 30px;
+  overflow: hidden;
+  z-index: 1;
+}
+.vc-corner {
+  position: absolute;
+  width: 640px;
+  height: 420px;
+}
+.vc-corner.top-left { top: -14px; left: -14px; }
+.vc-corner.bottom-right {
+  bottom: -14px;
+  right: -14px;
+  transform: rotate(180deg);
+}
+
+/* Contenido */
+.vc-content {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  text-align: center;
+}
+
+.vc-logos {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+.vc-logos img {
+  height: 145px;
+  width: auto;
+  max-width: 460px;
+  object-fit: contain;
+}
+.vc-logo-divider {
+  width: 3px;
+  height: 135px;
+  background: var(--gold);
+}
+
+.vc-intro {
+  position: absolute;
+  top: 218px;
+  left: 0;
+  right: 0;
+  font-size: 40px;
+  line-height: 54px;
+}
+
+.vc-name {
+  position: absolute;
+  top: 300px;
+  left: 170px;
+  right: 170px;
+  height: 76px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-bottom: 6px;
+}
+
+/* Línea del nombre: curva azul + extremos dorados */
+.vc-name-line {
+  position: absolute;
+  top: 384px;
+  left: 0;
+  right: 0;
+  height: 16px;
+}
+.vc-name-line .navy {
+  position: absolute;
+  left: 172px;
+  right: 182px;
+  top: 6px;
+  height: 5px;
+  background: var(--navy-dark);
+  border-radius: 100% 100% 0 0 / 100% 100% 0 0;
+}
+.vc-name-line .gold {
+  position: absolute;
+  top: 8px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+}
+.vc-name-line .gold.left  { left: 56px;  width: 120px; }
+.vc-name-line .gold.right { right: 56px; width: 120px; }
+
+.vc-text {
+  position: absolute;
+  top: 440px;
+  left: 110px;
+  right: 110px;
+  margin: 0;
+  font-size: 29px;
+  line-height: 1.5;
+}
+.vc-text strong { font-weight: 700; }
+
+.vc-verse {
+  position: absolute;
+  top: 650px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  font-size: 25px;
+  font-style: italic;
+  line-height: 1.5;
+}
+.vc-verse-ref {
+  position: absolute;
+  top: 735px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+/* Firmas */
+.vc-signers {
+  position: absolute;
+  top: 855px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 110px;
+}
+.vc-signer {
+  width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.vc-signer .signer-line {
+  width: 100%;
+  height: 3px;
+  background: var(--navy-dark);
+  margin-bottom: 14px;
+}
+.vc-signer strong {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.vc-signer em {
+  font-size: 22px;
+  font-style: italic;
+  line-height: 1.3;
+}
+
+/* Marca de emisión: pequeña, vertical, en el borde izquierdo inferior */
+.vc-issued {
+  position: absolute;
+  left: 52px;
+  bottom: 46px;
+  transform: rotate(-90deg);
+  transform-origin: left bottom;
+  z-index: 7;
+  color: var(--navy);
+  opacity: 0.8;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+`;
+
+/* ---------------------------------------------------------------------
+   Componente
+   --------------------------------------------------------------------- */
+
 export default function Certificate({
   name,
   issuedAt,
-  certificateRef
-}: {
-  name: string;
-  issuedAt: Date;
-  certificateRef?: RefObject<HTMLDivElement>;
-}) {
+  certificateRef,
+  logos = DEFAULT_LOGOS,
+  text = DEFAULT_TEXT,
+  verse = DEFAULT_VERSE,
+  verseReference = '2 Timoteo 4:5',
+  signers = DEFAULT_SIGNERS
+}: CertificateProps) {
   return (
-    <div
-      className="certificate vanc-certificate"
-      id="certificate"
-      ref={certificateRef}
-    >
-      <div className="inner-border" />
+    <div className="vc-certificate" id="certificate" ref={certificateRef}>
+      <style>{CSS}</style>
 
-      <div
-  className="certificate-issued"
-  style={{
-    position: 'absolute',
-
-    // Posición en el borde inferior izquierdo
-    left: '32px',
-    bottom: '38px',
-
-    // Texto vertical leyendo desde abajo hacia arriba
-    transform: 'rotate(-90deg)',
-    transformOrigin: 'left bottom',
-
-    zIndex: 25,
-
-    // Texto blanco limpio
-    color: '#ffffff',
-
-    fontFamily: 'Montserrat, Arial, sans-serif',
-    fontSize: '8.2px',
-    lineHeight: 1,
-    fontWeight: 600,
-    letterSpacing: '0.08em',
-    whiteSpace: 'nowrap',
-    opacity: 1
-  }}
->
-  Emitido el {formatIssuedAt(issuedAt)}
-</div>
-
-      <div className="dots-soft left" />
-      <div className="dots-soft right" />
-
-      <div className="dots left" />
-      <div className="dots right" />
-
-      <div className="line-art left">
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <span key={item} />
-        ))}
+      {/* Esquinas decorativas (recortadas dentro del marco) */}
+      <div className="vc-clip">
+        <Corner className="top-left" id="vc-tl" />
+        <Corner className="bottom-right" id="vc-br" />
       </div>
 
-      <div className="line-art right">
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <span key={item} />
-        ))}
-      </div>
+      {/* Marco dorado */}
+      <div className="vc-frame" />
 
-      <div className="bottom-design">
-        <svg
-          viewBox="0 0 1400 990"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M 0 590 C 105 720, 250 825, 420 900 C 530 949, 625 976, 700 985 C 775 976, 870 949, 980 900 C 1150 825, 1295 720, 1400 590 L 1400 990 L 0 990 Z"
-            fill="#002552"
-          />
+      {/* Marca de emisión (fecha y hora) */}
+      <div className="vc-issued">Emitido el {formatIssuedAt(issuedAt)}</div>
 
-          <path
-            d="M 0 410 C 60 600, 190 765, 370 870 C 490 940, 600 975, 700 986 C 800 975, 910 940, 1030 870 C 1210 765, 1340 600, 1400 410 L 1400 590 C 1295 720, 1150 825, 980 900 C 870 949, 775 976, 700 985 C 625 976, 530 949, 420 900 C 250 825, 105 720, 0 590 Z"
-            fill="#0874C9"
-          />
-
-          <path
-            d="M 0 270 C 30 465, 115 650, 275 795 C 405 912, 555 968, 700 982 C 845 968, 995 912, 1125 795 C 1285 650, 1370 465, 1400 270 L 1400 355 C 1350 535, 1240 690, 1075 820 C 950 918, 810 968, 700 979 C 590 968, 450 918, 325 820 C 160 690, 50 535, 0 355 Z"
-            fill="#5DAA28"
-          />
-        </svg>
-      </div>
-
-      <main className="content">
-
-        <div className="logos">
-          <img
-            className="logo-main"
-            src={logoOne}
-            alt="Logo Comisión de Evangelismo"
-          />
-
-          <div className="logo-divider" />
-
-          <img
-            className="logo-secondary"
-            src={logoTwo}
-            alt="Logo Federación Alianza Evangélica Costarricense"
-          />
+      <main className="vc-content">
+        {/* {LOGO} */}
+        <div className="vc-logos">
+          {logos.map((logo, index) => (
+            <span key={logo.src} style={{ display: 'contents' }}>
+              {index > 0 && <div className="vc-logo-divider" />}
+              <img src={logo.src} alt={logo.alt} />
+            </span>
+          ))}
         </div>
 
-        <h1 className="title">
-          CERTIFICADO
-        </h1>
+        <div className="vc-intro">Se otorga el presente certificado a:</div>
 
-        <div className="subtitle-row">
-          <span className="subtitle">
-            DE CUMPLIMIENTO
-          </span>
+        {/* {NOMBRE_DEL_PARTICIPANTE} */}
+        <div className="vc-name" style={{ fontSize: nameFontSize(name) }}>
+          {name}
+        </div>
+        <div className="vc-name-line">
+          <span className="gold left" />
+          <span className="navy" />
+          <span className="gold right" />
         </div>
 
-        <div className="intro">Se otorga el presente certificado a:</div>
+        {/* {TEXTO_DEL_CERTIFICADO} */}
+        <p className="vc-text">{text}</p>
 
-        <div className="name-container">
-          <div className="recipient-name">
-            {name}
-          </div>
-        </div>
+        {/* {TEXTO_BIBLICO} y {REFERENCIA_BIBLICA} */}
+        <p className="vc-verse">{verse}</p>
+        <p className="vc-verse-ref">{verseReference}</p>
 
-        <div className="vanc-recognition">En reconocimiento por haber concluido satisfactoriamente la <strong>Capacitación de Evangelismo VANC</strong>, demostrando su compromiso con la Gran Comisión y su disposición para compartir el mensaje de esperanza y salvación en Jesucristo.</div>
-        <div className="vanc-verse"><em>“Pero tú sé sobrio en todo, soporta las aflicciones, haz obra de evangelista, cumple tu ministerio”.</em><br />2 Timoteo 4:5</div>
-        <div className="vanc-date">Martes 17 de noviembre de 2026</div>
-
-        <div className="vanc-signatures">
-          <div className="vanc-signature-group">
-            <div className="vanc-sign-line" />
-            <div className="vanc-signature-names">
-              <div className="vanc-signer"><strong>Ana Lía Ávila</strong><em>Pastora Eje</em></div>
-              <div className="vanc-signer"><strong>Angie Rodríguez</strong><em>Líder de Ministerio</em></div>
+        {/* {FIRMA_N_NOMBRE} / {FIRMA_N_CARGO} */}
+        <div className="vc-signers">
+          {signers.map((signer) => (
+            <div className="vc-signer" key={signer.name}>
+              <div className="signer-line" />
+              <strong>{signer.name}</strong>
+              <em>{signer.role}</em>
             </div>
-          </div>
-          <div className="vanc-signature-group">
-            <div className="vanc-sign-line" />
-            <div className="vanc-signature-names">
-              <div className="vanc-signer"><strong>Pablo Sánchez</strong><em>Capacitador</em></div>
-              <div className="vanc-signer"><strong>Mario López</strong><em>Capacitador</em></div>
-            </div>
-          </div>
+          ))}
         </div>
-
       </main>
     </div>
   );
 }
-
