@@ -284,9 +284,8 @@ function App() {
         '.logo-secondary'
       )!.src = logo2Data;
 
-      exportNode.querySelector<HTMLImageElement>(
-        '.signature-image'
-      )!.src = signatureData;
+      const signatureImage = exportNode.querySelector<HTMLImageElement>('.signature-image');
+      if (signatureImage) signatureImage.src = signatureData;
 
     // ==========================================
 // CORRECCIÓN DE MÉTRICAS PARA HTML2CANVAS
