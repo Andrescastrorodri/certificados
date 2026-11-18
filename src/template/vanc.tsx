@@ -305,7 +305,7 @@ const CSS = `
 /* Firmas */
 .vc-signers {
   position: absolute;
-  top: 890px;
+  top: 820px;
   left: 100px;
   right: 100px;
   display: grid;
@@ -313,6 +313,20 @@ const CSS = `
   gap: 100px;
 }
 .vc-signer-group { min-width: 0; }
+.vc-signer-signatures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  height: 70px;
+  align-items: end;
+}
+.vc-signer-signatures img {
+  display: block;
+  width: 100%;
+  height: 70px;
+  object-fit: contain;
+  object-position: center bottom;
+}
 .vc-signer-group .signer-line {
   width: 100%;
   height: 3px;
@@ -422,6 +436,17 @@ export default function Certificate({
         <div className="vc-signers">
           {[0, 1].map((group) => (
             <div className="vc-signer-group" key={group}>
+              <div className="vc-signer-signatures">
+                {signers.slice(group * 2, group * 2 + 2).map((signer) => {
+                  const signaturePaths: Record<string, string> = {
+                    'Ana Lía Ávila': '/images/Analia%20A.png',
+                    'Angie Rodríguez': '/images/angie%20rodriguez.png',
+                    'Pablo Sánchez': '/images/Pablo%20Zanches.png',
+                    'Mario López': '/images/Mario%20Lo%CC%81pez.png'
+                  };
+                  return <img key={signer.name} src={signaturePaths[signer.name]} alt={`Firma de ${signer.name}`} />;
+                })}
+              </div>
               <div className="signer-line" />
               <div className="vc-signer-pair">
                 {signers.slice(group * 2, group * 2 + 2).map((signer) => (
