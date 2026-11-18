@@ -463,7 +463,7 @@ if (exportCourseText) {
 
       <div className="brand-copy">
         <span className="eyebrow">
-          ALIANZA EVANGÉLICA DE COSTA RICA
+          EVANGELISMO VANC
         </span>
 
         <strong>
@@ -763,7 +763,7 @@ if (exportCourseText) {
 
           <p className="text-gray-400 text-xs text-center md:text-left">
 
-            © {new Date().getFullYear()} Comisión de Evangelismo de la Alianza Evangélica de Costa Rica. Todos los derechos reservados.
+            © {new Date().getFullYear()} Evangelismo VANC. Todos los derechos reservados.
 
           </p>
 
