@@ -207,15 +207,15 @@ const CSS = `
   top: 8px;
   left: 0;
   right: 0;
-  height: 220px;
+  height: 245px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .vc-logos img {
-  height: 215px;
+  height: 240px;
   width: auto;
-  max-width: 720px;
+  max-width: 780px;
   object-fit: contain;
 }
 
@@ -450,7 +450,7 @@ export default function Certificate({
               <div className="signer-line" />
               <div className="vc-signer-pair">
                 {signers.slice(group * 2, group * 2 + 2).map((signer) => (
-                  <div className="vc-signer" key={signer.name} style={signer.name === 'Mario López' ? { color: '#ffffff' } : undefined}>
+                  <div className="vc-signer" key={signer.name} style={signer.name === 'Mario López' ? { color: '#ffffff', WebkitTextStroke: '0.45px #111111', paintOrder: 'stroke fill' } : undefined}>
                     <strong>{signer.name}</strong>
                     <em>{signer.role}</em>
                   </div>
