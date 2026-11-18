@@ -207,13 +207,13 @@ const CSS = `
   top: 8px;
   left: 0;
   right: 0;
-  height: 245px;
+  height: 230px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .vc-logos img {
-  height: 240px;
+  height: 225px;
   width: auto;
   max-width: 780px;
   object-fit: contain;
