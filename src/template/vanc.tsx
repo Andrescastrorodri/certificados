@@ -54,7 +54,9 @@ const DEFAULT_VERSE = (
 
 const DEFAULT_SIGNERS: Signer[] = [
   { name: 'Ana Lía Ávila', role: 'Pastora Eje' },
-  { name: 'Angie Rodríguez', role: 'Líder de Ministerio' }
+  { name: 'Angie Rodríguez', role: 'Líder de Ministerio' },
+  { name: 'Pablo Sánchez', role: 'Capacitador' },
+  { name: 'Mario López', role: 'Capacitador' }
 ];
 
 /* ---------------------------------------------------------------------
@@ -202,18 +204,18 @@ const CSS = `
 
 .vc-logos {
   position: absolute;
-  top: 18px;
+  top: 8px;
   left: 0;
   right: 0;
-  height: 195px;
+  height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .vc-logos img {
-  height: 190px;
+  height: 215px;
   width: auto;
-  max-width: 610px;
+  max-width: 720px;
   object-fit: contain;
 }
 
@@ -304,31 +306,38 @@ const CSS = `
 .vc-signers {
   position: absolute;
   top: 890px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  gap: 110px;
+  left: 100px;
+  right: 100px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 100px;
 }
-.vc-signer {
-  width: 520px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.vc-signer .signer-line {
+.vc-signer-group { min-width: 0; }
+.vc-signer-group .signer-line {
   width: 100%;
   height: 3px;
   background: var(--navy-dark);
   margin-bottom: 14px;
 }
+.vc-signer-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.vc-signer {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 .vc-signer strong {
-  font-size: 26px;
+  font-size: 19px;
   font-weight: 700;
   line-height: 1.3;
 }
 .vc-signer em {
-  font-size: 22px;
+  font-size: 17px;
   font-style: italic;
   line-height: 1.3;
 }
@@ -411,11 +420,17 @@ export default function Certificate({
 
         {/* {FIRMA_N_NOMBRE} / {FIRMA_N_CARGO} */}
         <div className="vc-signers">
-          {signers.map((signer) => (
-            <div className="vc-signer" key={signer.name}>
+          {[0, 1].map((group) => (
+            <div className="vc-signer-group" key={group}>
               <div className="signer-line" />
-              <strong>{signer.name}</strong>
-              <em>{signer.role}</em>
+              <div className="vc-signer-pair">
+                {signers.slice(group * 2, group * 2 + 2).map((signer) => (
+                  <div className="vc-signer" key={signer.name}>
+                    <strong>{signer.name}</strong>
+                    <em>{signer.role}</em>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
