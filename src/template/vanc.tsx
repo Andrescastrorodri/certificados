@@ -317,13 +317,13 @@ const CSS = `
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-  height: 70px;
+  height: 82px;
   align-items: end;
 }
 .vc-signer-signatures img {
   display: block;
   width: 100%;
-  height: 70px;
+  height: 82px;
   object-fit: contain;
   object-position: center bottom;
 }
