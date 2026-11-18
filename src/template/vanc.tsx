@@ -425,7 +425,7 @@ export default function Certificate({
               <div className="signer-line" />
               <div className="vc-signer-pair">
                 {signers.slice(group * 2, group * 2 + 2).map((signer) => (
-                  <div className="vc-signer" key={signer.name}>
+                  <div className="vc-signer" key={signer.name} style={signer.name === 'Mario López' ? { color: '#ffffff' } : undefined}>
                     <strong>{signer.name}</strong>
                     <em>{signer.role}</em>
                   </div>
